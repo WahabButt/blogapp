@@ -10,7 +10,8 @@ class PostsController extends Controller
     public function index(){
 
         $posts = \App\Blogs::where('status', 'active')->latest()->get();
-        return view('posts.index', compact('posts'));
+        $users = \App\User::all();
+        return view('posts.index', compact('posts', 'users'));
     }
 
     public function show($id){

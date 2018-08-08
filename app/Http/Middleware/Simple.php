@@ -16,9 +16,13 @@ class Simple
      */
     public function handle($request, Closure $next)
     {
-        if (Session::get('role') == 'admin' && !Session::get('role') ) {
+        if (!Session::get('role')) {
             return redirect('/');
         }
+        else if(Session::get('role') == 'admin'){
+            return redirect('/dashboard');
+        }
+
         return $next($request);
     }
 }

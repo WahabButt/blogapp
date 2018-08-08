@@ -5,7 +5,15 @@
         </a>
     </h2>
     <p class="blog-post-meta">
-        Posted at: {{ $post->created_at->toFormattedDateString() }}
+        Posted By:
+        @foreach($users as $user)
+            @if($post->user_id == $user->id)
+                {{ $user->name }}
+            @endif
+        @endforeach
+        <br>
+        At: {{ $post->created_at->toFormattedDateString() }}
+
     </p>
 
     {{ $post->description }}

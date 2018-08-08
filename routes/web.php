@@ -22,11 +22,16 @@ Route::post('/login', 'SessionsController@login');
 Route::get('/logout', 'SessionsController@destroy');
 
 Route::post('/register', 'AdminController@createUser');
-Route::get('/delete/{id}', 'AdminController@deleteUser')->middleware('admin');
-Route::get('/dashboard', 'AdminController@index')->middleware('admin');;
-Route::get('/blogstatus', 'AdminController@viewBlogStatus')->middleware('admin');
-Route::get('/updatestatus/{id}/{status}', 'AdminController@updateBlogStatus')->middleware('admin');
 
+Route::group(['middleware' => 'admin'], function () {
+    Route::get('/delete/{id}', 'AdminController@deleteUser');
+    Route::get('/dashboard', 'AdminController@index');
+    Route::get('/blogstatus', 'AdminController@viewBlogStatus');
+    Route::get('/updatestatus/{id}/{status}', 'AdminController@updateBlogStatus');
+});
 
-
+//Route::get('/delete/{id}', 'AdminController@deleteUser')->middleware('admin');
+//Route::get('/dashboard', 'AdminController@index')->middleware('admin');
+//Route::get('/blogstatus', 'AdminController@viewBlogStatus')->middleware('admin');
+//Route::get('/updatestatus/{id}/{status}', 'AdminController@updateBlogStatus')->middleware('admin');
 

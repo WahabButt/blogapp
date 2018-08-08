@@ -35,6 +35,9 @@
             background: #f1f1f1;
         }
 
+        a{
+            text-decoration: none;
+        }
         /* Add a background color when the inputs get focus */
         input[type=text]:focus, input[type=password]:focus {
             background-color: #ddd;
@@ -152,7 +155,12 @@
     @foreach($blogs as $blog)
         <tr>
             <td>{{ $blog->title }}</td>
-            <td>{{ $blog->description }}</td>
+            <td>
+                {{ str_limit( $blog->description, 50, ' ....')  }}
+                    <a href="/posts/{{ $blog->id }}" target="_blank">
+                        <b>Read More</b>
+                    </a>
+            </td>
             <td>{{ $blog->status }}</td>
             @if($blog->status == 'pending')
             <td><a href="/updatestatus/{{ $blog->id }}/active" onclick="return confirm('Are you sure you want to activate this blog?')"><i class="fa fa-refresh" aria-hidden="true"></i>
@@ -176,10 +184,6 @@
         if (event.target == modal) {
             modal.style.display = "none";
         }
-    }
-
-
-
     }
 </script>
 </body>
